@@ -1,0 +1,25 @@
+---
+- hosts:
+    - thevamp.audio
+
+  sudo: yes
+  user: root
+  vars:
+    prosody_tls_key_path: /etc/prosody/certs/thevamp.audio.key
+    prosody_tls_cert_path: /etc/prosody/certs/thevamp.audio.cert
+    restund_public_ip_address: 159.203.78.204
+    thevamp_mysql_user: xmpp
+    thevamp_mysql_db: prosody
+    root_domain: thevamp.audio
+    local_repository_root_path: "{{ playbook_dir }}/.."
+
+  vars_files:
+    - "thevamp-vault.yml"
+
+  roles:
+    - base
+    - ssl
+    - web
+    - postfix
+    - prosody
+    - restund
